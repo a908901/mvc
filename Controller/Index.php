@@ -3,6 +3,6 @@
     {
         public function index()
         {
-            include './view/lyq/index.html';
+            include './view/lyq/dist/index.html';
         }
     }

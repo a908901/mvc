@@ -11,32 +11,33 @@
             </div>
         </div>
         <div class="ms-login">
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
-                <el-form-item prop="username">
-                    <el-input v-model="ruleForm.username" placeholder="请输入用户名" ></el-input>
-                </el-form-item>
-                <el-form-item prop="password">
-                    <el-input type="password" placeholder="请输入密码" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
-                </el-form-item>
-                <div class="login-btn">
-                    <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-                </div>
-                <!--<p style="font-size:12px;line-height:30px;color:#999;">Tips : 用户名和密码随便填。</p>-->
-            </el-form>
+                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm" >
+                    <el-form-item prop="uname">
+                        <el-input v-model="ruleForm.uname" placeholder="请输入用户名" name="uname" id="uname" ></el-input>
+                    </el-form-item>
+                    <el-form-item prop="upwd">
+                        <el-input  name="upwd" id="upwd" type="upwd" placeholder="请输入密码" v-model="ruleForm.upwd" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
+                    </el-form-item>
+                    <div class="login-btn">
+                        <el-button type="primary" v-on:click="submitForm">登录</el-button>
+                    </div>
+                    <!--<p style="font-size:12px;line-height:30px;color:#999;">Tips : 用户名和密码随便填。</p>-->
+                </el-form>
         </div>
     </div>
 </template>
 
 <script>
+    import axios from 'axios';
     export default {
         data: function(){
             return {
                 ruleForm: {
-                    username: '',
-                    password: ''
+                    uname: '',
+                    upwd: ''
                 },
                 rules: {
                     username: [
@@ -70,20 +71,39 @@
         },
         methods: {
             submitForm(formName) {
-                const self = this;
-                self.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        localStorage.setItem('ms_username',self.ruleForm.username);
-                        self.$router.push('/readme');
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
+                const _this = this;
+//                self.$refs[formName].validate((valid) => {
+//                    if (valid) {
+//                        localStorage.setItem('ms_username',_this.ruleForm.username);
+////                        self.$router.push('/readme');
+//                        console.log(formName)
+//                    } else {
+//                        console.log('error submit!!');
+//                        return false;
+//                    }
+//                });
+
+
+//                XHRGet('../login.php', {}, function (response) {
+//                   console.log(response)
+//                });
+
+
+//                XHRPost('/login.php', this.ruleForm, function (response) {
+//                    console.log(response);
+//                })
+                axios.post('./login.php',this.ruleForm).then(function(response){
+                        console.log(response)
+                })
+
+
+
             }
         }
     }
+
 </script>
+
 
 <style>
     /*头部样式*/
