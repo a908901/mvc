@@ -1,13 +1,13 @@
 <template>
     <el-form ref="form" :model="form" label-width="80px" @submit.prevent="onSubmit" style="margin:20px;width:60%;min-width:600px;">
         <el-form-item label="机器名称">
-            <el-input v-model="form.name"></el-input>
+            <el-input v-model="form.jqname"></el-input>
         </el-form-item>
         <el-form-item label="损坏类型">
             <el-select v-model="form.region" placeholder="请选择">
-                <el-option label="私损" value="shanghai"></el-option>
-                <el-option label="公损" value="beijing"></el-option>
-                <el-option label="其他" value="nanning"></el-option>
+                <el-option label="私损" value="私损"></el-option>
+                <el-option label="公损" value="公损"></el-option>
+                <el-option label="其他" value="其他"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="活动时间">
@@ -23,7 +23,7 @@
             <el-input type="textarea" v-model="form.desc"></el-input>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary">立即创建</el-button>
+            <el-button type="primary" v-on:click="onSubmit">立即创建</el-button>
             <el-button @click.native.prevent>取消</el-button>
         </el-form-item>
     </el-form>
@@ -34,13 +34,10 @@
         data() {
             return {
                 form: {
-                    name: '',
+                    jqname: '',
                     region: '',
                     date1: '',
-                    date2: '',
                     delivery: false,
-                    type: [],
-                    resource: '',
                     desc: ''
                 }
             }
@@ -48,6 +45,7 @@
         methods: {
             onSubmit() {
                 console.log('submit!');
+                console.log(this.form)
             }
         }
     }

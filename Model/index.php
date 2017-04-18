@@ -2,7 +2,6 @@
 	 * 登录验证
 	 */
 	public function loginCheck(){
-
         <?php
         //处理登录操作
         $uname=$_POST['uname'];
