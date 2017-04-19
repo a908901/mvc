@@ -23,7 +23,7 @@ $sql = "SET NAMES UTF8";
 mysqli_query($conn, $sql);
 
 //SQL2：获取总记录数，并计算总页数
-$sql = "SELECT COUNT(*) FROM ty_product";
+$sql = "SELECT COUNT(*) FROM ty_property";
 $result = mysqli_query($conn,$sql);
 $row = mysqli_fetch_assoc($result);
 $pager['recordCount'] = intval($row['COUNT(*)']);//把字符串解析为整数
@@ -32,7 +32,7 @@ $pager['pageCount'] = ceil(($pager['recordCount'])/($pager['pageSize']));  //计
 //SQL3：获取当前指定页中的记录
 $start = ($pager['pageNum']-1)*$pager['pageSize']; //从哪一行开始读取记录
 $count = $pager['pageSize']; //读取多少行
-$sql = "SELECT * FROM ty_product LIMIT $start,$count";
+$sql = "SELECT * FROM ty_property LIMIT $start,$count";
 $result = mysqli_query($conn, $sql);
 
 //读取所有的产品记录

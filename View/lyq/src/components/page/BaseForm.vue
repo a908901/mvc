@@ -9,11 +9,11 @@
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
                 <el-form-item label="用途">
-                    <el-input v-model="form.use"></el-input>
+                    <el-input v-model="form.usee"></el-input>
                 </el-form-item>
                 <el-form-item label="领用日期">
                     <el-col :span="11">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+                        <el-date-picker type="date" placeholder="选择日期" v-model="form.ldate" style="width: 100%;"></el-date-picker>
                     </el-col>
 
                 </el-form-item>
@@ -43,14 +43,15 @@
 </template>
 
 <script>
+    import { XHRGet, XHRPost } from "../../api/ajax";
     export default {
         data: function(){
             return {
                 form: {
                     number:'',
                     name: '',
-                    use: '',
-                    date1: '',
+                    usee: '',
+                    ldate: '',
                     department:'',
                     username:'',
                     resource: '公用'
@@ -60,8 +61,13 @@
         methods: {
             onSubmit() {
                 this.$message.success('提交成功！');
-                console.log(this.form)
+                let data = this.form;
+                XHRGet('./baseForm.php',data, function (response) {
+                    console.log(response);
+                })
+
             }
         }
     }
 </script>
+

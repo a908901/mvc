@@ -19,7 +19,9 @@
         <div class="pagination">
             <el-pagination
                 layout="prev, pager, next"
-                :total="1000">
+                @current-change="handleCurrentChange"
+                :page-size="10"
+                :total="total">
             </el-pagination>
         </div>
 
@@ -78,8 +80,8 @@
                     tag: 0,//方式
                     detaialed: ''
                 },
-                page: 1,
-                pageNum: '1',
+                total: 5,
+                pageNum: 1,
                 detailFormVisible: false,
             }
 
@@ -98,9 +100,8 @@
             console.log(data);
             XHRGet('./Upload.php',{pageNum:data}, function (response) {
                 _this.tableData = response.data.data;
-                console.log(_this.tableData);
-                console.log(response);
-                console.log(response.data.data)
+                _this.total = response.data.pageCount;
+                console.log(_this.total);
             })
 
         },
@@ -117,6 +118,26 @@
                 this.detailFormVisible = true;
                 this.detailForm = Object.assign({}, row);
                 console.log(row)
+            },
+            //分页设计
+            handleCurrentChange(val) {
+                this.pageNum = val;
+                this.getUsers();
+            },
+            //获取用户列表
+            getUsers() {
+
+                let para = this.pageNum;
+//                getUserListPage(para).then((res) => {
+//                    this.total = res.data.pageCount;
+//                    this.users = res.data.pageSize;
+//                });
+                const _this= this;
+                XHRGet('./Upload.php',{pageNum:para}, function (response) {
+                    _this.total = response.data.pageCount;
+                    _this.tableData = response.data.data;
+
+                })
             }
 
         }
